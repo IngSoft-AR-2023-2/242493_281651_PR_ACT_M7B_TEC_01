@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from 'express';
-import { filtro1 } from './filters/filters';
+import { filtro1, filtro4 } from './filters/filters';
 import { Pipeline } from './pipeline/pipeline';
 import { QueueFactory } from './pipeline/queueFactory';
 import { Person } from './Interfaces/person';
@@ -13,6 +13,7 @@ app.use(express.json());
 const queueFactory = QueueFactory.getQueueFactory<Person>;
 const pipeline = new Pipeline<Person>([
   filtro1,
+  filtro4,
 ], queueFactory);
 
 //se crea el listener para cuando un job termina

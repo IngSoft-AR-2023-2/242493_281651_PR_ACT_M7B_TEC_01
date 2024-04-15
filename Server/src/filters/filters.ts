@@ -14,11 +14,15 @@ export const filtro1 = (input: Person) => {
     return input;
 };
 
-// // Segundo filtro: Convierte el input a mayúsculas.
-// export const filtro4 = (input: string): string=> {   
-//     let result:string = input.toUpperCase();   // Convierte el string a mayúsculas.
-//     console.log(`Filtro toUppercase,  input${JSON.stringify(input)}, output ${result} }`)
-//     return result
-// };
+// Segundo filtro: Convierte el input a mayúsculas.
+export const filtro4 = (input: Person) => {   
+    
+    if (input.necesita_asistencia_movilidad){
+        console.log(`La persona ${input.nombre} ${input.apellido} necesita asistencia en movilidad`);
+    } else {
+        console.log(`La persona ${input.nombre} ${input.apellido} será agendado en el proceso común`​);
+    }
+    return input;
+};
 
 
