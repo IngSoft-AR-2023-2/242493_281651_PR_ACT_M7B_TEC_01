@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { faker } from '@faker-js/faker';
-import { Person } from '../../Interfaces/person';
+import { Person } from './Interfaces/person';
 
 const sendPatient = async () => {
     const patient: Person = {
@@ -13,7 +13,7 @@ const sendPatient = async () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/api/word', patient);
+      const response = await axios.post('http://localhost:3001/api/patient', patient);
       console.log('Data sent successfully:', response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
