@@ -1,6 +1,5 @@
 import express, { Express, Request, Response } from 'express';
-import fs from 'fs';
-import { toLowercaseWithSpaces, toUppercase, replaceSpacesWithDots, filterWithRandomError } from './filters/filters';
+import { filtro1 } from './filters/filters';
 import { Pipeline } from './pipeline/pipeline';
 import { QueueFactory } from './pipeline/queueFactory';
 import { Person } from './Interfaces/person';
@@ -10,34 +9,20 @@ const port: number = 3001;
 
 app.use(express.json());
 
-// const crearArchivoSalida = (salida: string) => {
-//   const nombreArchivo = '../salida.txt';
-//   fs.appendFile(nombreArchivo, salida + '\n', (err) => {
-//     if (err) {
-//       console.error('Error al agregar a archivo de salida:', err);
-//     } else {
-//       console.log('Salida final agregada exitosamente al archivo:', nombreArchivo);
-//     }
-//   });
-// };
 
-const queueFactory = QueueFactory.getQueueFactory<string>;
-const pipeline = new Pipeline<string>([
-  toLowercaseWithSpaces,
-  filterWithRandomError,
-  toUppercase,
-  replaceSpacesWithDots
+const queueFactory = QueueFactory.getQueueFactory<Person>;
+const pipeline = new Pipeline<Person>([
+  filtro1,
 ], queueFactory);
 
 //se crea el listener para cuando un job termina
 pipeline.on('finalOutput', (output) => {
-  console.log(`Salida final: ${output}`);
-  // crearArchivoSalida(output);
+  console.log(`Se ha finalizado satisfactoriamente el proceso de agenda para la persona ${output.nombre} ${output.apellido}`);
 });
 
 //se crea el listener para cuando un job da error
 pipeline.on('errorInFilter', (error, data) => {
-  console.error(`Error en el filtro: ${error}, Datos: ${data}`);
+  console.error(`No se ha podido agendar ${data.nombre} ${data.apellido}`);
 });
 
 app.post('/api/patient', (req: Request, res: Response) => {

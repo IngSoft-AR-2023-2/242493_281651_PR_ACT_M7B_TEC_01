@@ -1,30 +1,24 @@
-// Primer filtro: Convierte el input a minúsculas y añade un espacio entre cada letra.
-export const toLowercaseWithSpaces = (input: string): string => {
-    let result: string = input
-        .toLowerCase()             // Convierte el string a minúsculas.
-        .split('')                  // Separa el string en un array de caracteres.
-        .join(' ');                 // Une los caracteres con un espacio entre ellos.
-    console.log(`Filtro toLowercaseWithSpaces,  input${JSON.stringify(input)}, output ${result} }`)
-    return result
-};
 
-// Segundo filtro: Convierte el input a mayúsculas.
-export const toUppercase = (input: string): string=> {   
-    let result:string = input.toUpperCase();   // Convierte el string a mayúsculas.
-    console.log(`Filtro toUppercase,  input${JSON.stringify(input)}, output ${result} }`)
-    return result
-};
+import { Person } from '../Interfaces/person';
 
-// Tercer filtro: Reemplaza cada espacio en el input por un punto.
-export const replaceSpacesWithDots = (input: string): string => {
-    let result = input.replace(/ /g, '.');  // Reemplaza cada espacio (' ') por un punto ('.').
-    console.log(`Filtro replaceSpacesWithDots,  input${JSON.stringify(input)}, output ${result} }`)
-    return result
-};
+export const filtro1 = (input: Person) => {
+    const telefono = input.telefono.replace(/\s/g, '');
+    const primerosDosDigitos = telefono.slice(0, 2);
 
-export const filterWithRandomError = (input: string): string => {
-    if (Math.random() < 0.5) { // Probabilidad de 50% para generar un error
-        throw new Error("Error aleatorio");
+    if (telefono.length !== 9 || primerosDosDigitos !== '09') {
+        console.log(telefono, primerosDosDigitos)
+        console.log('El número de teléfono no tiene el formato correcto');
+    } else {
+        console.log('El número de teléfono tiene el formato correcto')
     }
-    return input.trim()
-}
+    return input;
+};
+
+// // Segundo filtro: Convierte el input a mayúsculas.
+// export const filtro4 = (input: string): string=> {   
+//     let result:string = input.toUpperCase();   // Convierte el string a mayúsculas.
+//     console.log(`Filtro toUppercase,  input${JSON.stringify(input)}, output ${result} }`)
+//     return result
+// };
+
+
